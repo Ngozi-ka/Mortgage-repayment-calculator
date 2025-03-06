@@ -14,8 +14,37 @@ const mortgageForm = document.getElementsByTagName("mortgageform");
 
 
 mortgageForm.addEventListener("submit", function(e){
-   alert("hello")
+   e.preventDefault();
+   const loanAmount = parseFloat(amount.value);
+    const loanTermMonths = parseFloat(term.value) * 12;
+     const monthlyRate = parseFloat(rate.value) / 100 / 12;
+       
 
-})
+ const mortgageType = document.querySelector('input[name="type"]:
+checked').value;
 
-})
+        let monthlyPayment, totalPayment;
+
+        if (mortgageType === "repayment") {
+            const factor = Math.pow(1 + monthlyRate, loanTermMonths);
+            monthlyPayment = loanAmount * (monthlyRate * factor) / (factor - 1);
+            totalPayment = monthlyPayment * loanTermMonths;
+}
+        else {
+            monthlyPayment = loanAmount *    monthlyRate;
+
+            totalPayment = monthlyPayment * loanTermMonths;
+ }
+
+        monthlyAmount.textContent = `$${monthlyPayment.toFixed(2)}`;
+        totalRepayment.textContent = `$${totalPayment.toFixed(2)}`;
+    });
+
+    clearAll.addEventListener("click", () => {
+        form.reset();
+        monthlyRepayment.textContent = "$0.00";
+        totalRepayment.textContent = "$0.00";
+
+});
+
+});
